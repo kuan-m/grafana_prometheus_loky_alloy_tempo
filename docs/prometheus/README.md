@@ -113,3 +113,30 @@ sort(clamp_max(node_cpu_seconds_total, 15000))
 ```bash
 timestamp(clamp_max(node_cpu_seconds_total, 15000))
 ```
+
+
+## 4-22. Aggregations Over Time
+- **Avg Over Time**  returns the average of items in a range
+```bash
+avg_over_time(node_cpu_seconds_total[10m])
+```
+
+- **Sum Over Time**  returns the sum of items in a range
+```bash
+sum_over_time(node_cpu_seconds_total[10m])
+```
+
+- **Min Over Time**  returns the min of items in a range
+```bash
+min_over_time(node_cpu_seconds_total[10m])
+```
+
+- **Max Over Time**  returns the max of items in a range
+```bash
+max_over_time(node_cpu_seconds_total[10m])
+```
+
+- **Count Over Time**  returns the count of items in a range
+```bash
+count_over_time(node_cpu_seconds_total[10m])
+```
