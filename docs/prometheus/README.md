@@ -53,3 +53,9 @@ group(node_cpu_seconds_total) by (mode)
 ```bash
 avg(prometheus_http_requests_total) by (code)
 ```
+
+## 4-18. Time Offsets
+- **Offset**
+```bash
+avg(prometheus_http_requests_total offset 10m) by (code)
+```
