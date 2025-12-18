@@ -59,3 +59,35 @@ avg(prometheus_http_requests_total) by (code)
 ```bash
 avg(prometheus_http_requests_total offset 10m) by (code)
 ```
+
+## 4-19. Clamping and Checking Functions
+- **Absent** returns empty if exists, return value if not exists
+```bash
+absent(node_cpu_seconds_total)
+```
+```bash
+absent(node_cpu_seconds_total{cpu="x09d"})
+```
+
+- **Absent over time** returns an empty vector if the range vector passed to it has any elements
+```bash
+absent_over_time(node_cpu_seconds_total[5m])
+```
+```bash
+absent_over_time(node_cpu_seconds_total{cpu="x09d"}[5m])
+```
+
+- **Clamp** return value which lower limit of min and an upper limit of max
+```bash
+clamp(node_cpu_seconds_total, 300, 15000)
+```
+
+- **Clamp min** return value which are more than limit
+```bash
+clamp_min(node_cpu_seconds_total, 300)
+```
+
+- **Clamp max** return value which are less than limit
+```bash
+clamp_max(node_cpu_seconds_total, 15000)
+```
