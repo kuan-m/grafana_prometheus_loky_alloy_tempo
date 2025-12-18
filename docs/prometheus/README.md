@@ -99,3 +99,17 @@ clamp_max(node_cpu_seconds_total, 15000)
 ```bash
 delta(cpu_temp_celsius{host="zeus"}[2h])
 ```
+
+## 4-21. Sorting and Timestamps
+
+- **Sort**  returns vector elements sorted by their float sample values (asc)
+```bash
+sort(clamp_max(node_cpu_seconds_total, 15000))
+```
+
+- **Sort by label**
+
+- **Timestamp**  returns the timestamp since January 1, 1970 UTC
+```bash
+timestamp(clamp_max(node_cpu_seconds_total, 15000))
+```
