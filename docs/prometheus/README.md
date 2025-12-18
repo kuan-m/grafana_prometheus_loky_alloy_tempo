@@ -29,3 +29,27 @@ http_requests_total{job="api", method="GET"}
 ```bash
 handler=~"/api/.*"
 ```
+
+## 4-17. Aggregation Operators
+- **Sum**
+```bash
+sum(node_cpu_seconds_total)
+```
+
+- **Sum by (key)** 
+```bash
+sum(node_cpu_seconds_total) by (mode)
+```
+
+- **Sum without (key)** 
+```bash
+sum(node_cpu_seconds_total) without (mode)
+```
+
+- **Group by (key)** 
+```bash
+group(node_cpu_seconds_total) by (mode)
+```
+```bash
+avg(prometheus_http_requests_total) by (code)
+```
