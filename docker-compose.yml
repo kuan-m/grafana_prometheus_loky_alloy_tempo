@@ -43,6 +43,8 @@ services:
         condition: service_healthy
       prometheus:
         condition: service_started
+      loki:
+        condition: service_started
     ports:
       - "${GRAFANA_PORT:-3030}:3030"
     env_file:
@@ -51,6 +53,37 @@ services:
       - grafana-data:/var/lib/grafana
       - ./infra/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+
+  loki:
+    image: grafana/loki:2.9.2
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "${LOKI_PORT:-3100}:3100"
+    volumes:
+      - ./infra/loki/loki-config.yml:/etc/loki/local-config.yaml:ro
+      - loki-data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - ./infra/promtail/promtail-config.yml:/etc/promtail/config.yml:ro
+      - ./logs:/var/log:ro
+    command: -config.file=/etc/promtail/config.yml
+
+  log-generator:
+    build:
+      context: ./log-generator
+      dockerfile: Dockerfile
+    container_name: log-generator
+    restart: "no"
+    volumes:
+      - ./logs:/var/log
+    depends_on:
+      - promtail
 
   shoehub:
     image: aussiearef/shoehub
@@ -83,3 +116,4 @@ volumes:
   prometheus-data:
   grafana-data:
   mysql-storage:
+  loki-data:

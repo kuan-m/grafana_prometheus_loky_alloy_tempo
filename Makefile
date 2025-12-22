@@ -6,7 +6,7 @@ MYSQL_DATABASE ?= prometheus
 DB_ROOT_PASSWORD ?= root
 DB_USERNAME = root
 
-.PHONY: up down import-db
+.PHONY: up down gen-logs import-db
 
 build:
 	@cp .env.example .env || true
@@ -17,6 +17,10 @@ up:
 
 down:
 	@docker compose down
+
+gen-logs:
+	@echo "Generating logs..."
+	@docker compose run --rm log-generator
 
 # =========================================
 # Database import
