@@ -51,3 +51,7 @@ pipeline_stages:
 ```
 ### than u can filter
 ![Dynamic_labels](img/Dynamic_labels.png)
+
+
+## 9-8. Visualising Loki Queries on Dashboards
+![Visualising_Loki_Queriest](img/Visualising_Loki_Queries.png)

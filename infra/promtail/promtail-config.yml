@@ -25,13 +25,13 @@ scrape_configs:
           __path__: /var/log/loki_udemy.log
           team: DevOps
           env: Prod
+
     pipeline_stages:
     - logfmt: # парсит лог как key=value
         mapping:
           component: # вытаскивает поле component
+          level:
     - labels:
-        component: # Теперь Promtail:
-                  # берёт extracted field component
-                  # превращает его в label Loki
-                  # ❗ Нельзя делать динамические лейблы с высокой кардинальностью
-
+        component:
+        level:
+        
