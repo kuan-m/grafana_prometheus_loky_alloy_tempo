@@ -31,31 +31,31 @@ func main() {
 	fmt.Println("Starting log generation...")
 
 	for i := 0; i < 10; i++ {
-		// Determine log level based on iteration
-		var logLevel string
-		var logMessage string
+		var logLevel, logMessage string
 
 		switch i % 3 {
 		case 0:
 			logLevel = "INFO"
-			logMessage = "Information: Application running normally"
+			logMessage = "Application running normally"
 		case 1:
 			logLevel = "WARNING"
-			logMessage = "Warning: Resource usage high"
+			logMessage = "Resource usage high"
 		default:
 			logLevel = "ERROR"
-			logMessage = "Critical error: Database connection lost"
+			logMessage = "Database connection lost"
 		}
 
-		// Randomly select component
 		component := components[rand.Intn(len(components))]
+		timestamp := time.Now().UTC().Format(time.RFC3339)
 
-		// Format log entry
-		timestamp := time.Now().Format("2006-01-02 15:04:05")
-		logEntry := fmt.Sprintf("%s level=%s app=myapp component=%s %s\n",
-			timestamp, logLevel, component, logMessage)
+		logEntry := fmt.Sprintf(
+			"ts=%s level=%s app=myapp component=%s msg=%q\n",
+			timestamp,
+			logLevel,
+			component,
+			logMessage,
+		)
 
-		// Write to file
 		if _, err := file.WriteString(logEntry); err != nil {
 			log.Printf("Failed to write log entry: %v", err)
 			continue
@@ -69,4 +69,3 @@ func main() {
 
 	fmt.Println("Log generation completed!")
 }
-
